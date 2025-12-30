@@ -2,7 +2,7 @@
 
 A collection of dev container features for improving development workflow.
 
-## `agent-auth`
+## `agent-creds`
 
 Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds using Docker volumes.
 
@@ -11,9 +11,9 @@ Persist coding agent credentials (Claude Code and Codex) across dev container re
 ```json
 {
   "dev.containers.defaultFeatures": {
-    "ghcr.io/fjktkm/devcontainer-features/agent-auth:1": {}
+    "ghcr.io/fjktkm/devcontainer-features/agent-creds:1": {}
   }
 }
 ```
 
-See [src/agent-auth/README.md](src/agent-auth/README.md) for more details.
+See [src/agent-creds/README.md](src/agent-creds/README.md) for more details.

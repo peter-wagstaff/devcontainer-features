@@ -1,4 +1,4 @@
-# Agent Auth Mounts
+# Agent Credentials
 
 Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds.
 
@@ -9,7 +9,7 @@ Add to VS Code User Settings (`settings.json`):
 ```json
 {
   "dev.containers.defaultFeatures": {
-    "ghcr.io/fjktkm/devcontainer-features/agent-auth:1": {}
+    "ghcr.io/fjktkm/devcontainer-features/agent-creds:1": {}
   }
 }
 ```
@@ -29,5 +29,5 @@ ls -la ~/.claude ~/.codex
 
 Reset credentials:
 ```bash
-docker volume rm claude-auth codex-auth
+docker volume rm claude-creds codex-creds
 ```

@@ -6,7 +6,7 @@ set -e
 source dev-container-features-test-lib
 
 # Feature-specific tests
-check "agent-auth directories created" test -d "$HOME/.claude" -o -d "$HOME/.codex"
+check "agent-creds directories created" test -d "$HOME/.claude" -o -d "$HOME/.codex"
 
 # Check that at least one agent directory exists
 if [ -d "$HOME/.claude" ]; then

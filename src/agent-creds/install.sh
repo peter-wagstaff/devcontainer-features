@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-echo "Activating feature 'agent-auth'"
+echo "Activating feature 'agent-creds'"
 
 # Get remote user information
 USER="${_REMOTE_USER:-${_CONTAINER_USER:-root}}"
@@ -16,7 +16,7 @@ setup_symlink() {
     [ "$USER" != "root" ] && chown -R "$USER:$USER" "$1" 2>/dev/null || true
 }
 
-# Setup all agent authentication directories
+# Setup all agent credential directories
 setup_symlink "/mnt/.claude" ".claude"
 setup_symlink "/mnt/.codex" ".codex"
 

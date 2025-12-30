@@ -1,16 +1,16 @@
 {
-    "name": "Agent Auth Persistence",
-    "id": "agent-auth",
+    "name": "Agent Credentials",
+    "id": "agent-creds",
     "version": "1.0.0",
     "description": "Persist coding agent credentials (Claude Code and Codex) across dev container rebuilds using Docker volumes",
     "mounts": [
         {
-            "source": "claude-auth",
+            "source": "claude-creds",
             "target": "/mnt/.claude",
             "type": "volume"
         },
         {
-            "source": "codex-auth",
+            "source": "codex-creds",
             "target": "/mnt/.codex",
             "type": "volume"
         }
