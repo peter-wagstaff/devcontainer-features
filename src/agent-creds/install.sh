@@ -17,7 +17,10 @@ setup_symlink() {
 }
 
 # Setup all agent credential directories
-setup_symlink "/mnt/.claude" ".claude"
-setup_symlink "/mnt/.codex" ".codex"
+setup_symlink "/mnt/claude" ".claude"
+setup_symlink "/mnt/codex" ".codex"
+setup_symlink "/mnt/gemini" ".gemini"
+setup_symlink "/mnt/cache-google-vscode-extension" ".cache/google-vscode-extension"
+setup_symlink "/mnt/cache-cloud-code" ".cache/cloud-code"
 
-echo "Done. Supported: Claude Code, Codex"
+echo "Done. Supported: Claude Code, Codex, Gemini Code Assist"
