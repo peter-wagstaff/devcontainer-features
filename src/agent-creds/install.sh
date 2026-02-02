@@ -3,9 +3,14 @@ set -e
 
 echo "Activating feature 'agent-creds'"
 
-# Get remote user information
-USER="${_REMOTE_USER:-${_CONTAINER_USER:-root}}"
-HOME="${_REMOTE_USER_HOME:-${_CONTAINER_USER_HOME:-/root}}"
+# Resolve the intended remote user (feature scripts run as root)
+TARGET_USER="${_REMOTE_USER:-${_CONTAINER_USER:-}}"
+[ -z "$TARGET_USER" ] && TARGET_USER="$(stat -c %U /workspaces 2>/dev/null || true)"
+[ -z "$TARGET_USER" ] && TARGET_USER="${SUDO_USER:-root}"
+
+TARGET_HOME="$(getent passwd "$TARGET_USER" 2>/dev/null | cut -d: -f6)"
+TARGET_HOME="${TARGET_HOME:-$(eval echo "~$TARGET_USER" 2>/dev/null)}"
+HOME="${TARGET_HOME:-/root}"
 
 # Setup symlink from volume mount to home directory
 setup_symlink() {
