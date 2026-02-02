@@ -13,7 +13,7 @@ setup_symlink() {
     mkdir -p "$(dirname "$HOME/$2")"
     [ -e "$HOME/$2" ] && [ ! -L "$HOME/$2" ] && rm -rf "$HOME/$2"
     ln -sf "$1" "$HOME/$2"
-    [ "$USER" != "root" ] && chown -R "$USER:$USER" "$1" 2>/dev/null || true
+    chmod -R 777 "$1" 2>/dev/null || true
 }
 
 # Setup all agent credential directories
