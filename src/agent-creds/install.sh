@@ -1,31 +1,41 @@
 #!/bin/sh
+
+CLAUDE="${CLAUDE:-true}"
+CODEX="${CODEX:-true}"
+GEMINI="${GEMINI:-true}"
+GITHUB_CLI="${GITHUB_CLI:-true}"
+
 set -e
 
-echo "Activating feature 'agent-creds'"
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Script must be run as root."
+    exit 1
+fi
 
-# Resolve the intended remote user (feature scripts run as root)
-TARGET_USER="${_REMOTE_USER:-${_CONTAINER_USER:-}}"
-[ -z "$TARGET_USER" ] && TARGET_USER="$(stat -c %U /workspaces 2>/dev/null || true)"
-[ -z "$TARGET_USER" ] && TARGET_USER="${SUDO_USER:-root}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+USER_SCRIPT="${SCRIPT_DIR}/scripts/install-user.sh"
 
-TARGET_HOME="$(getent passwd "$TARGET_USER" 2>/dev/null | cut -d: -f6)"
-TARGET_HOME="${TARGET_HOME:-$(eval echo "~$TARGET_USER" 2>/dev/null)}"
-HOME="${TARGET_HOME:-/root}"
+# Determine the appropriate non-root user (mirrors github-cli feature behavior)
+USERNAME="${USERNAME:-"${_REMOTE_USER:-"automatic"}"}"
+if [ "${USERNAME}" = "auto" ] || [ "${USERNAME}" = "automatic" ]; then
+    USERNAME=""
+    POSSIBLE_USERS="vscode node codespace $(awk -v val=1000 -F ':' '$3==val{print $1}' /etc/passwd)"
+    for CURRENT_USER in ${POSSIBLE_USERS}; do
+        if [ -n "${CURRENT_USER}" ] && id -u "${CURRENT_USER}" > /dev/null 2>&1; then
+            USERNAME="${CURRENT_USER}"
+            break
+        fi
+    done
+    if [ -z "${USERNAME}" ]; then
+        USERNAME=root
+    fi
+elif [ "${USERNAME}" = "none" ] || ! id -u "${USERNAME}" > /dev/null 2>&1; then
+    USERNAME=root
+fi
 
-# Setup symlink from volume mount to home directory
-setup_symlink() {
-    mkdir -p "$1"
-    mkdir -p "$(dirname "$HOME/$2")"
-    [ -e "$HOME/$2" ] && [ ! -L "$HOME/$2" ] && rm -rf "$HOME/$2"
-    ln -sf "$1" "$HOME/$2"
-    chmod -R 777 "$1" 2>/dev/null || true
-}
-
-# Setup all agent credential directories
-setup_symlink "/mnt/claude" ".claude"
-setup_symlink "/mnt/codex" ".codex"
-setup_symlink "/mnt/gemini" ".gemini"
-setup_symlink "/mnt/cache-google-vscode-extension" ".cache/google-vscode-extension"
-setup_symlink "/mnt/cache-cloud-code" ".cache/cloud-code"
-
-echo "Done. Supported: Claude Code, Codex, Gemini Code Assist"
+if [ "${USERNAME}" = "root" ]; then
+    CLAUDE="${CLAUDE}" CODEX="${CODEX}" GEMINI="${GEMINI}" GITHUB_CLI="${GITHUB_CLI}" \
+        sh "${USER_SCRIPT}"
+else
+    su - "${USERNAME}" -c "CLAUDE=${CLAUDE} CODEX=${CODEX} GEMINI=${GEMINI} GITHUB_CLI=${GITHUB_CLI} sh '${USER_SCRIPT}'"
+fi
