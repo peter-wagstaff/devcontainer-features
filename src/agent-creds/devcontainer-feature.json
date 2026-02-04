@@ -1,6 +1,6 @@
 {
     "id": "agent-creds",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "name": "Agent Credentials",
     "description": "Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist, GitHub CLI) across dev container rebuilds using Docker volumes",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-creds",
@@ -29,7 +29,7 @@
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
     ],
-    "postStartCommand": "/bin/sh -c '. /usr/local/share/agent-creds/env && /usr/local/share/agent-creds/post-start.sh'",
+    "postStartCommand": ". /usr/local/share/agent-creds/env && /usr/local/share/agent-creds/post-start.sh",
     "mounts": [
         {
             "source": "claude",
