@@ -12,12 +12,8 @@ if [ "$(id -u)" -ne 0 ]; then
     }
 fi
 
-setup_symlink() {
+setup_permissions() {
     src="$1"
-    dest="$2"
-    mkdir -p "$(dirname "$HOME/$dest")"
-    [ -e "$HOME/$dest" ] && [ ! -L "$HOME/$dest" ] && rm -rf "$HOME/$dest"
-    ln -sf "$src" "$HOME/$dest"
     if [ -e "$src" ]; then
         ${RUN_AS_ROOT} chown -R "${TARGET_USER}:${TARGET_GROUP}" "$src" 2>/dev/null || true
         ${RUN_AS_ROOT} chmod -R 777 "$src" 2>/dev/null || true
@@ -25,23 +21,23 @@ setup_symlink() {
 }
 
 if [ "$CLAUDE" = "true" ]; then
-    setup_symlink "/mnt/claude" ".claude"
-    echo "Enabled: Claude Code"
+    setup_permissions "/mnt/claude"
+    echo "Permissions set: Claude Code"
 fi
 
 if [ "$CODEX" = "true" ]; then
-    setup_symlink "/mnt/codex" ".codex"
-    echo "Enabled: Codex"
+    setup_permissions "/mnt/codex"
+    echo "Permissions set: Codex"
 fi
 
 if [ "$GEMINI" = "true" ]; then
-    setup_symlink "/mnt/gemini" ".gemini"
-    setup_symlink "/mnt/cache-google-vscode-extension" ".cache/google-vscode-extension"
-    setup_symlink "/mnt/cache-cloud-code" ".cache/cloud-code"
-    echo "Enabled: Gemini Code Assist"
+    setup_permissions "/mnt/gemini"
+    setup_permissions "/mnt/cache-google-vscode-extension"
+    setup_permissions "/mnt/cache-cloud-code"
+    echo "Permissions set: Gemini Code Assist"
 fi
 
 if [ "$GITHUB_CLI" = "true" ]; then
-    setup_symlink "/mnt/gh" ".config/gh"
-    echo "Enabled: GitHub CLI"
+    setup_permissions "/mnt/gh"
+    echo "Permissions set: GitHub CLI"
 fi

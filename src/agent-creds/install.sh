@@ -11,7 +11,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INSTALL_DIR="/usr/local/share/agent-creds"
 
 mkdir -p "${INSTALL_DIR}"
+cp "${SCRIPT_DIR}/post-create.sh" "${INSTALL_DIR}/post-create.sh"
 cp "${SCRIPT_DIR}/post-start.sh" "${INSTALL_DIR}/post-start.sh"
+chmod +x "${INSTALL_DIR}/post-create.sh"
 chmod +x "${INSTALL_DIR}/post-start.sh"
 
 cat > "${INSTALL_DIR}/env" <<EOF
