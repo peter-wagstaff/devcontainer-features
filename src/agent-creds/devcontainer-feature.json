@@ -1,6 +1,6 @@
 {
     "id": "agent-creds",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "name": "Agent Credentials",
     "description": "Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist, GitHub CLI) across dev container rebuilds using Docker volumes",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-creds",
@@ -8,22 +8,22 @@
         "claude": {
             "type": "boolean",
             "default": true,
-            "description": "Mount Claude Code config (~/.claude) via volume."
+            "description": "Mount Claude Code config (`~/.claude`) via volume."
         },
         "codex": {
             "type": "boolean",
             "default": true,
-            "description": "Mount Codex config (~/.codex) via volume."
+            "description": "Mount Codex config (`~/.codex`) via volume."
         },
         "gemini": {
             "type": "boolean",
             "default": true,
-            "description": "Mount Gemini Code Assist config (~/.gemini) and caches (~/.cache/google-vscode-extension, ~/.cache/cloud-code) via volumes."
+            "description": "Mount Gemini Code Assist config (`~/.gemini`) and caches (`~/.cache/google-vscode-extension`, `~/.cache/cloud-code`) via volumes."
         },
         "github-cli": {
             "type": "boolean",
             "default": true,
-            "description": "Mount GitHub CLI config (~/.config/gh) via volume."
+            "description": "Mount GitHub CLI config (`~/.config/gh`) via volume."
         }
     },
     "installsAfter": [
