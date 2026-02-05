@@ -1,6 +1,6 @@
 {
     "id": "agent-creds",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "name": "Agent Credentials",
     "description": "Persist coding agent credentials (Claude Code, Codex, Gemini Code Assist, GitHub CLI) across dev container rebuilds using Docker volumes",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-creds",

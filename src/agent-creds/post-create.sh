@@ -12,6 +12,7 @@ setup_symlink() {
 
 if [ "$CLAUDE" = "true" ]; then
     setup_symlink "/mnt/claude" ".claude"
+    [ -f /mnt/claude/.config.json ] || echo '{}' > /mnt/claude/.config.json
     echo "Symlinked: Claude Code"
 fi
 
