@@ -2,18 +2,18 @@
 
 A collection of dev container features for improving development workflow.
 
-## `agent-creds`
+## `agent-persistence`
 
-Persist coding agent credentials (Claude Code, Codex and Gemini Code Assist) across dev container rebuilds using Docker volumes.
+Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes.
 
 **Usage:** Add to VS Code User Settings (`settings.json`):
 
 ```json
 {
   "dev.containers.defaultFeatures": {
-    "ghcr.io/fjktkm/devcontainer-features/agent-creds:1": {}
+    "ghcr.io/fjktkm/devcontainer-features/agent-persistence:1": {}
   }
 }
 ```
 
-See [src/agent-creds/README.md](src/agent-creds/README.md) for more details.
+See [src/agent-persistence/README.md](src/agent-persistence/README.md) for more details.

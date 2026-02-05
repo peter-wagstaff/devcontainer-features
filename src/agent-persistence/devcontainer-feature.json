@@ -1,0 +1,50 @@
+{
+    "id": "agent-persistence",
+    "version": "1.3.0",
+    "name": "Agent Persistence",
+    "description": "Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes",
+    "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-persistence",
+    "keywords": [
+        "claude",
+        "codex",
+        "gemini",
+        "github-cli",
+        "persistence",
+        "ai",
+        "coding-agent"
+    ],
+    "options": {
+        "claude": {
+            "type": "boolean",
+            "default": true,
+            "description": "Mount Claude Code config (`~/.claude`) via volume."
+        },
+        "codex": {
+            "type": "boolean",
+            "default": true,
+            "description": "Mount Codex config (`~/.codex`) via volume."
+        },
+        "gemini": {
+            "type": "boolean",
+            "default": true,
+            "description": "Mount Gemini Code Assist config (`~/.gemini`) and caches (`~/.cache/google-vscode-extension`, `~/.cache/cloud-code`) via volumes."
+        },
+        "github-cli": {
+            "type": "boolean",
+            "default": true,
+            "description": "Mount GitHub CLI config (`~/.config/gh`) via volume."
+        }
+    },
+    "legacyIds": [
+        "agent-creds"
+    ],
+    "mounts": [
+        {
+            "source": "agent-persistence",
+            "target": "/mnt/agent-persistence",
+            "type": "volume"
+        }
+    ],
+    "postCreateCommand": ". /usr/local/share/agent-persistence/env && /usr/local/share/agent-persistence/post-create.sh",
+    "postStartCommand": ". /usr/local/share/agent-persistence/env && /usr/local/share/agent-persistence/post-start.sh"
+}

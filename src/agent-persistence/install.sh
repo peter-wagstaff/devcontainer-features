@@ -8,9 +8,10 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-INSTALL_DIR="/usr/local/share/agent-creds"
+INSTALL_DIR="/usr/local/share/agent-persistence"
 
 mkdir -p "${INSTALL_DIR}"
+
 cp "${SCRIPT_DIR}/post-create.sh" "${INSTALL_DIR}/post-create.sh"
 cp "${SCRIPT_DIR}/post-start.sh" "${INSTALL_DIR}/post-start.sh"
 chmod +x "${INSTALL_DIR}/post-create.sh"
