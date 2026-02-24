@@ -7,7 +7,7 @@ A feature to remind you of your favorite color
 
 ```json
 "features": {
-    "ghcr.io/fjktkm/devcontainer-features/color:1": {}
+    "ghcr.io/peter-wagstaff/devcontainer-features/color:1": {}
 }
 ```
 
@@ -21,4 +21,4 @@ A feature to remind you of your favorite color
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/fjktkm/devcontainer-features/blob/main/src/color/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/peter-wagstaff/devcontainer-features/blob/main/src/color/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
