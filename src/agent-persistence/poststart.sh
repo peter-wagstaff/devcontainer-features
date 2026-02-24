@@ -8,7 +8,7 @@ if [ -e "${VOLUME_ROOT}" ]; then
     TARGET_GROUP="$(id -gn)"
     RUN_AS_ROOT=""
     if [ "$(id -u)" -ne 0 ]; then
-        command -v sudo >/dev/null 2>&1 && RUN_AS_ROOT="sudo"
+        command -v sudo >/dev/null 2>&1 && RUN_AS_ROOT="sudo -n"
     fi
     if [ -n "${RUN_AS_ROOT}" ] || [ "$(id -u)" -eq 0 ]; then
         ${RUN_AS_ROOT} chown -R "${TARGET_USER}:${TARGET_GROUP}" "${VOLUME_ROOT}" 2>/dev/null || true
