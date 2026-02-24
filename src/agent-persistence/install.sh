@@ -18,6 +18,7 @@ chmod +x "${INSTALL_DIR}/oncreate.sh"
 chmod +x "${INSTALL_DIR}/poststart.sh"
 
 cat > "${INSTALL_DIR}/env" <<EOF
+export SCOPE="${SCOPE:-shared}"
 export CLAUDE="${CLAUDE:-true}"
 export CODEX="${CODEX:-true}"
 export GEMINI="${GEMINI:-true}"

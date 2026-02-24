@@ -3,6 +3,9 @@
 set -e
 
 VOLUME_ROOT="/mnt/agent-persistence"
+if [ "$SCOPE" = "per-project" ] && [ -n "$DEVCONTAINER_ID" ]; then
+    VOLUME_ROOT="/mnt/agent-persistence/$DEVCONTAINER_ID"
+fi
 if [ -e "${VOLUME_ROOT}" ]; then
     TARGET_USER="$(id -un)"
     TARGET_GROUP="$(id -gn)"

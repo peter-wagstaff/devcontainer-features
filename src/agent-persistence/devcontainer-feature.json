@@ -1,6 +1,6 @@
 {
     "id": "agent-persistence",
-    "version": "1.3.1",
+    "version": "1.4.0",
     "name": "Agent Persistence",
     "description": "Persist configurations for coding agents (Claude Code, Codex, Gemini Code Assist) and tools they commonly use (GitHub CLI) across dev container rebuilds using Docker volumes",
     "documentationURL": "https://github.com/fjktkm/devcontainer-features/tree/main/src/agent-persistence",
@@ -14,6 +14,12 @@
         "coding-agent"
     ],
     "options": {
+        "scope": {
+            "type": "string",
+            "enum": ["shared", "per-project"],
+            "default": "shared",
+            "description": "Volume scope: 'shared' uses one volume across all containers (default), 'per-project' isolates data per dev container within the volume."
+        },
         "claude": {
             "type": "boolean",
             "default": true,

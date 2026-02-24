@@ -3,7 +3,11 @@
 set -e
 
 VOLUME_ROOT="/mnt/agent-persistence"
-if [ -e "${VOLUME_ROOT}" ]; then
+if [ "$SCOPE" = "per-project" ] && [ -n "$DEVCONTAINER_ID" ]; then
+    VOLUME_ROOT="/mnt/agent-persistence/$DEVCONTAINER_ID"
+fi
+if [ -e "${VOLUME_ROOT}" ] || [ "$SCOPE" = "per-project" ]; then
+    mkdir -p "${VOLUME_ROOT}"
     TARGET_USER="$(id -un)"
     TARGET_GROUP="$(id -gn)"
     RUN_AS_ROOT=""
